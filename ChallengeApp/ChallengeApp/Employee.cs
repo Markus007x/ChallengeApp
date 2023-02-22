@@ -2,30 +2,41 @@
 {
     public class Employee
     {
-        
-        private List<int> score = new List<int>();
 
-        public Employee(string surname, string name, int age)
+        private List<float> grades = new List<float>();           // New Private List for counting employees
+
+        public Employee(string name, string surname)                 // constructor typing different people 
         {
-            this.surname = surname;
-            this.name = name;
-            this.age = age;
+            this.Name = name;
+            this.Surname = surname;
+        }
+        public string Name { get; private set; }                     // setting the name into private
+
+        public string Surname { get; private set; }                  // setting the surname into private
+
+        public void AddGrade(float grade)                            // our methode
+        {
+            grades.Add(grade);
         }
 
-        public string surname { get; private set; }
-        public string name { get; private set; }
-        public int age { get; private set; }
-        public int Result
+        public Statistics GetStatistics()
         {
-            get
+            var statistics = new Statistics();
+            statistics.Average = 0;
+            statistics.Max = float.MinValue;                        // To caluclkate the Math.Max, we need a lower grade
+            statistics.Min = float.MaxValue;
+
+            foreach (var grade in this.grades)
             {
-                return this.score.Sum();
+                statistics.Max = Math.Max(statistics.Max, grade);   // taking max from class Math
+                statistics.Min = Math.Min(statistics.Min, grade);   // taking Min from class Min
+                statistics.Average += grade;                        // means: average = average + grade
+                
             }
-        }
 
-        public void AddScore(int number)
-        {
-            this.score.Add(number);
+            statistics.Average = statistics.Average / this.grades.Count;    // here we caluclate our loops devided our sum
+
+            return statistics;
         }
     }
 }
