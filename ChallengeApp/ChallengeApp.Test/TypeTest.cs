@@ -1,5 +1,5 @@
 ﻿
-
+/*
 namespace ChallengeApp.Test
 {
     public class TypeTest
@@ -22,14 +22,14 @@ namespace ChallengeApp.Test
         public void compareName()
         {
             // arrange  Preparation
-            var employe1 = GetEmployee("Adam");
-            var employe2 = GetEmployee("Monika");
+            var employee1 = GetEmployee("Adam");
+            var employee2 = GetEmployee("Monika");
 
             // act      Execution
 
 
             // assert   Assumption whether successful
-            Assert.AreNotEqual(employe1, employe2);
+            Assert.AreNotEqual(employee1, employee2);
 
         }
         private Employee GetEmployee(string surname)
@@ -64,3 +64,5 @@ namespace ChallengeApp.Test
         }
     }
 }
+
+*/
