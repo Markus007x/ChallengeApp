@@ -31,6 +31,19 @@
             }
             
         }
+
+        public void AddGrade(long grade)                            // Method LONG
+        {
+            float gradeAsFloat = (float)grade;
+            this.AddGrade(gradeAsFloat);            
+        }
+        public void AddGrade(int grade)                            // Method INT
+        {
+            float gradeAsFloat = (float)grade;
+            this.AddGrade(gradeAsFloat);
+        }
+
+
         public void AddGrade(string grade)                            // our methode
         {
             if (float.TryParse(grade, out float result))              // check whether the float is parse? if yes, then addgrade 
@@ -43,6 +56,7 @@
             }
            
         }
+       
 
         public Statistics GetStatistics()
         {
