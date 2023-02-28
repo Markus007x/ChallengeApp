@@ -8,7 +8,7 @@ namespace ChallengeApp.Test
         public void CheckMaxGrade()
         {
             // arrange  Preparation
-            var employee = new Employee("Adam", "Kowalski");
+            var employee = new Employee();
             employee.AddGrade(1);
             employee.AddGrade(2);
             employee.AddGrade(7);
@@ -24,7 +24,7 @@ namespace ChallengeApp.Test
         public void CheckMinGrade()
         {
             // arrange  Preparation
-            var employee = new Employee("Adam", "Kowalski");
+            var employee = new Employee();
             employee.AddGrade(1);
             employee.AddGrade(2);
             employee.AddGrade(7);
@@ -36,11 +36,30 @@ namespace ChallengeApp.Test
             // assert   Assumption whether successful
             Assert.AreEqual(1, statistics.Min);
         }
+
         [Test]
-        public void CheckAverage()
+        public void CheckAverageLetter()                    // Test rating with Letters
         {
             // arrange  Preparation
-            var employee = new Employee("Adam", "Kowalski");
+            var employee = new Employee();
+            employee.AddGrade('c');
+            employee.AddGrade('B');
+            employee.AddGrade(3);
+
+            // act      Execution
+            var statistics = employee.GetStatistics();
+
+
+            // assert   Assumption whether successful
+            Assert.AreEqual('C', statistics.AverageLetter);
+        }
+
+        [Test]
+        public void CheckAverage()
+            
+        {
+            // arrange  Preparation
+            var employee = new Employee();
             employee.AddGrade(1);
             employee.AddGrade(2);
             employee.AddGrade(7);
