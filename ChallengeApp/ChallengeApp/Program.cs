@@ -3,10 +3,24 @@
 Console.WriteLine("Welcome to the employee's evluation programme ");
 Console.WriteLine("Rate between 0 -> 100 or from A to D. A is 100 and D 20");
 Console.WriteLine("Press q to exit");
-Console.WriteLine("=============================================\n");
+Console.WriteLine("========================================================\n");
 
 
-var employee = new Employee();
+var employee = new Employee("Adam", "Kowalski");
+
+//try
+//{
+//    Employee emp = null;
+//    var name = emp.Surname;
+//}
+//catch(Exception exception)
+//{
+//    Console.WriteLine(exception.Message);
+//}
+//finally
+//{
+//    Console.WriteLine("Finally here");
+//}
 
 
 while (true)
@@ -21,12 +35,16 @@ while (true)
         {
             break;
         }
-        employee.AddGrade(input);
+                
     }
-    else
-    {
-        employee.AddGrade(input);
-    }
+        try
+        {
+            employee.AddGrade(input);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Exception catched: {e.Message}");
+        }    
 }
 
 var statistics = employee.GetStatistics();

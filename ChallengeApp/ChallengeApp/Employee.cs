@@ -5,12 +5,15 @@ namespace ChallengeApp
 {
     public class Employee
     {
+        //  private const char sex = 'M';                            // this.sex = 'K' -> only in readonly in constructur string
 
         private List<float> grades = new List<float>();           // New Private List for counting employees
 
-        public Employee()                 // constructor typing different people 
+        public Employee(string name, string surname)                 // constructor typing different people 
         {
-           
+            this.Name = name;
+            this.Surname = surname;
+                                                                  // only in constructor you can change
         }
         public string Name { get; private set; }                     // setting the name into private
 
@@ -29,7 +32,7 @@ namespace ChallengeApp
             }
             else
             {
-                Console.WriteLine("Invalid grade value");
+                throw new Exception("Invalid grade value");
             }
             
         }
@@ -71,8 +74,8 @@ namespace ChallengeApp
                     this.grades.Add(20);
                     break;
                 default:
-                    Console.WriteLine("Wrong Letter");
-                    break;
+                    throw new Exception("Wrong Letter");
+                    
             }
 
 
@@ -94,7 +97,7 @@ namespace ChallengeApp
 
                 else
                 {
-                    Console.WriteLine("String is not float");
+                    throw new Exception("String is not float");
                 }
             }
            
