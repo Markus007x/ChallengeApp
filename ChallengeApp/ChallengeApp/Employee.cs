@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 
 namespace ChallengeApp
 {
@@ -79,14 +80,24 @@ namespace ChallengeApp
 
         public void AddGrade(string grade)                            // our methode
         {
-            if (float.TryParse(grade, out float result))              // check whether the float is parse? if yes, then addgrade 
+           
             {
-                this.AddGrade(result);
+
+                if (float.TryParse(grade, out float result))              // check whether the float is parse? if yes, then addgrade 
+                {
+                    this.AddGrade(result);
+                }
+                else if (char.TryParse(grade, out char resultLetter))
+                {
+                    this.AddGrade(resultLetter);
+                }
+
+                else
+                {
+                    Console.WriteLine("String is not float");
+                }
             }
-            else
-            {
-                Console.WriteLine("String is not float");
-            }
+           
 
         }
 

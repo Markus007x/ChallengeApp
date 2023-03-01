@@ -1,22 +1,32 @@
 ﻿using ChallengeApp;
 
 Console.WriteLine("Welcome to the employee's evluation programme ");
+Console.WriteLine("Rate between 0 -> 100 or from A to D. A is 100 and D 20");
 Console.WriteLine("Press q to exit");
 Console.WriteLine("=============================================\n");
 
 
 var employee = new Employee();
 
+
 while (true)
 {
     Console.WriteLine("Give next employee's rating: ");
+
     
     var input = Console.ReadLine();
-    if (input == "q")
+    if (input.Length == 1)
     {
-        break;
+        if (input == "q")
+        {
+            break;
+        }
+        employee.AddGrade(input);
     }
-    employee.AddGrade(input);
+    else
+    {
+        employee.AddGrade(input);
+    }
 }
 
 var statistics = employee.GetStatistics();
