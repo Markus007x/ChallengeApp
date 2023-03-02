@@ -6,5 +6,6 @@
         public float Max { get; set; }              // for our calculating max result
         public float Average { get; set; }
         public char AverageLetter { get; set; }
+     
     }
 }

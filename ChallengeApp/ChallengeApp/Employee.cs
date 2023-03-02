@@ -3,20 +3,18 @@ using System.Diagnostics;
 
 namespace ChallengeApp
 {
-    public class Employee
+    public class Employee : Person
     {
-        //  private const char sex = 'M';                            // this.sex = 'K' -> only in readonly in constructur string
+        //  private const char sex = 'M';                                    // this.sex = 'K' -> only in readonly in constructur string
 
-        private List<float> grades = new List<float>();           // New Private List for counting employees
+        private List<float> grades = new List<float>();                   // New Private List for counting employees
 
-        public Employee(string name, string surname)                 // constructor typing different people 
+        public Employee(string name, string surname, char sex)                 // constructor typing different people 
+            : base(name,surname,sex)                                            // variable 'name' will be given to class Perosn and 'this.Name = name'
         {
-            this.Name = name;
-            this.Surname = surname;
-                                                                  // only in constructor you can change
+                           
         }
-        public string Name { get; private set; }                     // setting the name into private
-
+      
         public string Surname { get; private set; }                  // setting the surname into private
 
         public void AddGrade(float grade)                            // our methode

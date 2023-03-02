@@ -6,7 +6,7 @@ Console.WriteLine("Press q to exit");
 Console.WriteLine("========================================================\n");
 
 
-var employee = new Employee("Adam", "Kowalski");
+var employee = new Employee("Adam", "Kowalski", 'M');
 
 //try
 //{
