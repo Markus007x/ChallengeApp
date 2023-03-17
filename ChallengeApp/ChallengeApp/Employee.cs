@@ -1,22 +1,30 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
-
-namespace ChallengeApp
+﻿
+namespace ChallengeApp                                              //     Jak to zrobic.....
 {
-    public class Employee : Person
-    {
-        //  private const char sex = 'M';                                    // this.sex = 'K' -> only in readonly in constructur string
+    public class Employee : IEmployee
+    {   
 
         private List<float> grades = new List<float>();                   // New Private List for counting employees
 
-        public Employee(string name, string surname, char sex)                 // constructor typing different people 
-            : base(name,surname,sex)                                            // variable 'name' will be given to class Perosn and 'this.Name = name'
+        public Employee()
         {
-                           
+
         }
-      
+
+        public Employee(string name, string surname)                 // constructor typing different people 
+                                                                       
+        {
+            this.Name = name;
+            this.Surname = surname;
+        }
+        public string Name { get; private  set; }                  // setting the surname into private
         public string Surname { get; private set; }                  // setting the surname into private
 
+        public void Addgrade(decimal grade)
+        {
+            decimal gradeAsFloat = (decimal)grade;
+            this.AddGrade((float)gradeAsFloat);
+        }
         public void AddGrade(float grade)                            // our methode
         {
             // int valueInInt = Math.Floor(grade);                     // float to int floor
@@ -41,68 +49,128 @@ namespace ChallengeApp
             float gradeAsFloat = (float)grade;
             this.AddGrade(gradeAsFloat);            
         }
-        public void AddGrade(int grade)                            // Method int
+        //public void AddGrade(int grade)                            // Method int
+        //{
+        //    float gradeAsFloat = (float)grade;
+        //    this.AddGrade(gradeAsFloat);
+        //}
+        public void Addgrade(char grade)
         {
-            float gradeAsFloat = (float)grade;
-            this.AddGrade(gradeAsFloat);
+            throw new Exception("Invalid grade value");
+            
         }
 
-        public void AddGrade(char grade)                            // Method char
+        public void AddGrade(string grade)                           // Method string
         {
-            switch(grade)
-            {
-                case 'A':
-                case 'a':    
-                    this.grades.Add(100);
-                    break;
-                case 'B':
-                case 'b':
-                    this.grades.Add(80);
-                    break;
-                case 'C':
-                case 'c':
-                    this.grades.Add(60);
-                    break;
-                case 'D':
-                case 'd':
-                    this.grades.Add(40);
-                    break;
-                case 'E':
-                case 'e':
-                    this.grades.Add(20);
-                    break;
-                default:
-                    throw new Exception("Wrong Letter");
+
+            //if (float.TryParse(grade, out float result))              // check whether the float is parse? if yes, then addgrade 
+            //{
+            //    this.AddGrade(result);
+            //}
+            //else 
+
+            //{
+                switch (grade)
+                {
+                    case "6":
+                        this.grades.Add(100);
+                        break;
+                    case "-6" or "6-":
+                        this.grades.Add(95);
+                        break;
+                    case "5+" or "+5":
+                        this.grades.Add(85);
+                        break;
+                    case "5":
+                        this.grades.Add(80);
+                        break;
+                    case "-5" or "5-":
+                        this.grades.Add(75);
+                        break;
+                    case "+4" or "4+":
+                        this.grades.Add(65);
+                        break;
+                    case "4":
+                        this.grades.Add(60);
+                        break;
+                    case "-4" or "4-":
+                        this.grades.Add(55);
+                        break;
+                    case "3+" or "+3":
+                        this.grades.Add(45);
+                        break;
+                    case "3":
+                        this.grades.Add(40);
+                        break;
+                    case "-3" or "3-":
+                        this.grades.Add(35);
+                        break;
+                    case "+2" or "2+":
+                        this.grades.Add(25);
+                        break;
+                    case "2":
+                        this.grades.Add(20);
+                        break;
+                    case "-2" or "2-":
+                        this.grades.Add(15);
+                        break;
+                    case "+1" or "1+":
+                        this.grades.Add(5);
+                        break;
+                    case "1":
+                        this.grades.Add(0);
+                        break;
+                    default:
+                        throw new Exception("Invalid grade Value");
+                }
                     
-            }
+            //}
 
 
         }
 
-        public void AddGrade(string grade)                            // our methode
+        //public void AddGrade(string grade)                            // our methode
+        //{
+
+        //    {
+
+        //        if (float.TryParse(grade, out float result))              // check whether the float is parse? if yes, then addgrade 
+        //        {
+        //            this.AddGrade(result);
+        //        }
+        //        else if (char.TryParse(grade, out char resultLetter))
+        //        {
+        //            this.AddGrade(resultLetter);
+        //        }
+
+        //        else
+        //        {
+        //            throw new Exception("String is not float");
+        //        }
+        //    }
+
+
+        //}
+
+        public void Addgrade(float grade)
         {
-           
-            {
-
-                if (float.TryParse(grade, out float result))              // check whether the float is parse? if yes, then addgrade 
-                {
-                    this.AddGrade(result);
-                }
-                else if (char.TryParse(grade, out char resultLetter))
-                {
-                    this.AddGrade(resultLetter);
-                }
-
-                else
-                {
-                    throw new Exception("String is not float");
-                }
-            }
-           
-
+            throw new NotImplementedException();
         }
 
+        public void Addgrade(double grade)
+        {
+            throw new NotImplementedException();
+        }
 
+        public void Addgrade(int grade)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Addgrade(string grade)
+        {
+            throw new NotImplementedException();
+        }
 
         public Statistics GetStatistics()
         {
@@ -114,13 +182,11 @@ namespace ChallengeApp
            
             foreach (var grade in this.grades)
             {
-                if (grade >= 0)
-                {
+                               
                     statistics.Max = Math.Max(statistics.Max, grade);   // taking max from class Math
                     statistics.Min = Math.Min(statistics.Min, grade);   // taking Min from class Min
                     statistics.Average += grade;                        // means: average = average + grade
-                }
-              
+                             
             }
             statistics.Average /= this.grades.Count;    // here we caluclate our loops devided our sum
 
