@@ -5,7 +5,10 @@
     Console.WriteLine("Rate between 1 - 6 with e.g. 2+ or -3");
     Console.WriteLine("Press q to exit");
     var employee = new EmployeeInFile("Adam", "Kowalski");
-    employee.AddGrade(0.5814f);
+    employee.AddGrade(15651f);
+    employee.AddGrade(54.15f);
+    employee.AddGrade('D');
+    employee.AddGrade(007f);
 
 //while (true)
 //{

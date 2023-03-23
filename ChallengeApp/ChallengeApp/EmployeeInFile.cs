@@ -1,14 +1,17 @@
-﻿namespace ChallengeApp                                          // it store all values in file
+﻿using System.IO;
+using System.Text;
+
+namespace ChallengeApp                                          // it store all values in file
 {
     public class EmployeeInFile : EmployeeBase
     {
 
-        
+
         public const string fileName = "C:\\Users\\ersch\\OneDrive\\Desktop\\grades.txt";
 
         private List<float> grades = new List<float>();
 
-        public EmployeeInFile(string name, string surname) 
+        public EmployeeInFile(string name, string surname)
             : base(name, surname)
         {
         }
@@ -20,7 +23,7 @@
                 writer.WriteLine(grade);                 // writer writes the grade into fileName 
             }
         }
-        
+
         public override void AddGrade(decimal grade)
         {
             throw new NotImplementedException();
@@ -43,40 +46,78 @@
 
         public override void AddGrade(char grade)
         {
-            throw new NotImplementedException();
+            using (var writer = File.AppendText(fileName))
+            {
+                writer.WriteLine(grade);                 // writer writes the grade into fileName 
+            }
         }
 
         public override Statistics GetStatistics()
         {
-                         
-                                                 
-        var result = new Statistics();
+            var gradesFromFile = this.ReadGradesFromFile();
+            var result = this.CountStatistics(gradesFromFile);
+            return result;
+        }
 
-            if (File.Exists(fileName))                 // first control whether the file exist, because without we could get an error
-            {                                           // if not exists, then give me back "Return" empty
-                using (var reader = File.OpenText(fileName))
+        private List<float> ReadGradesFromFile()
+        {
+            var grades = new List<float>();
+            if (File.Exists($"{fileName}"))
+            {
+                using (var reader = File.OpenText($"{fileName}"))
                 {
                     var line = reader.ReadLine();
                     while (line != null)
                     {
-                        var numer = float.Parse(line);
-                        result.Min = float.MinValue;                              // calculating MIN, MAX, Average etc.
-                        result.Max = float.MaxValue;
-                        result.Average = 0;
-
-                        foreach (var grade in this.grades)
-                        {
-                            result.Min = Math.Min(result.Min, grade);
-                            result.Max = Math.Max(result.Max, grade);
-                            result.Average += grade;
-                        }
-                        result.Average /= this.grades.Count;
+                        var number = float.Parse(line);
+                        grades.Add(number);
+                        line = reader.ReadLine();
                     }
+                }
+            }
+            return grades;
+        }
+
+        private Statistics CountStatistics(List<float> grades)
+        {
+            var statistics = new Statistics();
+            statistics.Average = 0;
+            statistics.Max = float.MinValue;
+            statistics.Min = float.MaxValue;
+
+            foreach (var grade in grades)
+            {
+                if (grade >= 0)
+                {
+                    statistics.Max = Math.Max(statistics.Max, grade);
+                    statistics.Min = Math.Min(statistics.Min, grade);
+                    statistics.Average += grade;
 
                 }
-                
             }
-            return result;
+            statistics.Average /= grades.Count;
+
+            switch (statistics.Average)
+            {
+                case var average when average >= 80:
+                    statistics.AverageLetter = 'A';
+                    break;
+                case var average when average >= 60:
+                    statistics.AverageLetter = 'B';
+                    break;
+                case var average when average >= 40:
+                    statistics.AverageLetter = 'C';
+                    break;
+                case var average when average >= 20:
+                    statistics.AverageLetter = 'D';
+                    break;
+                default:
+                    statistics.AverageLetter = 'E';
+                    break;
+            }
+            return statistics;
         }
     }
+
+
 }
