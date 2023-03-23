@@ -9,8 +9,8 @@
           
         }
 
-        public string Name { get;  }
-        public string Surname { get; }
+        public string Name { get; private set; }
+        public string Surname { get; private set; }
         
     }
 

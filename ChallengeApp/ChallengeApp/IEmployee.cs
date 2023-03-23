@@ -5,11 +5,11 @@
         string Name { get;  }
         string Surname { get; }
       
-        void Addgrade(float grade);
-        void Addgrade(double grade);
-        void Addgrade(int grade);
-        void Addgrade(char grade);
-        void Addgrade(string grade);
+        void AddGrade(float grade);
+        void AddGrade(double grade);
+        void AddGrade(int grade);
+        void AddGrade(char grade);
+        void AddGrade(string grade);
        
 
 

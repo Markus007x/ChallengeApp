@@ -6,27 +6,27 @@
 
         public string Surname => "Kowalski";
 
-        public Statistics Addgrade(float grade)
+        public Statistics AddGrade(float grade)
         {
             return new Statistics();
         }
-        public Statistics Addgrade(double grade)
+        public Statistics AddGrade(double grade)
         {
             return new Statistics();
         }
-        public Statistics Addgrade(decimal grade)
+        public Statistics AddGrade(decimal grade)
         {
             return new Statistics();
         }
-        public Statistics Addgrade(int grade)
+        public Statistics AddGrade(int grade)
         {
             return new Statistics();
         }
-        public void Addgrade(char grade)
+        public void AddGrade(char grade)
         {
             throw new NotImplementedException();
         }
-        public void Addgrade(string grade)
+        public void AddGrade(string grade)
         {
             throw new NotImplementedException();
             // 6 => 100
@@ -46,17 +46,17 @@
             return new Statistics();
         }
 
-        void IEmployee.Addgrade(float grade)
+        void IEmployee.AddGrade(float grade)
         {
             throw new NotImplementedException();
         }
 
-        void IEmployee.Addgrade(double grade)
+        void IEmployee.AddGrade(double grade)
         {
             throw new NotImplementedException();
         }
 
-        void IEmployee.Addgrade(int grade)
+        void IEmployee.AddGrade(int grade)
         {
             throw new NotImplementedException();
         }
