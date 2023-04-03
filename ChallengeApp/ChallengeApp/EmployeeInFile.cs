@@ -8,8 +8,9 @@ namespace ChallengeApp                                          // it store all 
 
 
         public const string fileName = "C:\\Users\\ersch\\OneDrive\\Desktop\\grades.txt";
+        public override event GradeAddedDelegate GradeAdded;
 
-        private List<float> grades = new List<float>();
+        // private List<float> grades = new List<float>();
 
         public EmployeeInFile(string name, string surname)
             : base(name, surname)
@@ -18,30 +19,53 @@ namespace ChallengeApp                                          // it store all 
 
         public override void AddGrade(float grade)
         {
+            if (grade >= 0 && grade <= 100)
+            {
+                using (var writer = File.AppendText(fileName))
+                {
+                    writer.WriteLine(grade);                 // writer writes the grade into fileName 
+                }
+                if (GradeAdded != null)
+                {
+                    GradeAdded(this, new EventArgs());                  // this means = we
+                }
+            }
+            else
+            {
+                throw new Exception("invalid grade value");
+            }
+        }
+
+        public override void AddGrade(decimal grade)
+        {
             using (var writer = File.AppendText(fileName))
             {
                 writer.WriteLine(grade);                 // writer writes the grade into fileName 
             }
         }
 
-        public override void AddGrade(decimal grade)
-        {
-            throw new NotImplementedException();
-        }
-
         public override void AddGrade(double grade)
         {
-            throw new NotImplementedException();
+            using (var writer = File.AppendText(fileName))
+            {
+                writer.WriteLine(grade);                 // writer writes the grade into fileName 
+            }
         }
 
         public override void AddGrade(int grade)
         {
-            throw new NotImplementedException();
+            using (var writer = File.AppendText(fileName))
+            {
+                writer.WriteLine(grade);                 // writer writes the grade into fileName 
+            }
         }
 
         public override void AddGrade(string grade)
         {
-            throw new NotImplementedException();
+            using (var writer = File.AppendText(fileName))
+            {
+                writer.WriteLine(grade);                 // writer writes the grade into fileName 
+            }
         }
 
         public override void AddGrade(char grade)
@@ -78,7 +102,7 @@ namespace ChallengeApp                                          // it store all 
             return grades;
         }
 
-        private Statistics CountStatistics(List<float> grades)
+        public Statistics CountStatistics(List<float> grades)
         {
             var statistics = new Statistics();
             statistics.Average = 0;

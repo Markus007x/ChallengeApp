@@ -3,6 +3,7 @@ namespace ChallengeApp                                       // it store all val
 {
     public class EmployeeInMemory : EmployeeBase
     {
+        public override event GradeAddedDelegate GradeAdded;
 
 
         private List<float> grades = new List<float>();                   // New Private List for counting employees
@@ -17,8 +18,12 @@ namespace ChallengeApp                                       // it store all val
         {
             if (grade >= 0 && grade <= 100)
             {
-                grades.Add(grade);
-            }
+                this.grades.Add(grade);
+                if (GradeAdded != null)
+                {
+                    GradeAdded(this, new EventArgs());                  // this means = we
+                }
+            }  
             else
             {
                 throw new Exception("Invalid grade value");
@@ -42,6 +47,10 @@ namespace ChallengeApp                                       // it store all val
 
         public override void AddGrade(string grade)
         {
+            if (GradeAdded != null)
+            {
+                GradeAdded(this, new EventArgs());                  // this means = we
+            }
             switch (grade)
             {
                 case "6":
@@ -95,11 +104,13 @@ namespace ChallengeApp                                       // it store all val
                 default:
                     throw new Exception("Invalid grade Value");
             }
+
+           
         }
 
         public override void AddGrade(char grade)
         {
-            throw new Exception("Invalid grade value");
+            throw new Exception("Invalid grade Value");
         }
         public override void AddGrade(decimal grade)
         {
