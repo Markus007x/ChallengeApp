@@ -1,5 +1,6 @@
 ﻿
 namespace ChallengeApp                              // include all methods which will be universal for all employees. 
+                                                    // short programme, its only implementing the methods addgrade
 {
     public abstract class EmployeeBase : IEmployee               
     {

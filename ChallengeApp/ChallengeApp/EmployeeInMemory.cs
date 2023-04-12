@@ -1,14 +1,15 @@
 ﻿
+
+using System.Net.Http.Headers;
+using System.Runtime.CompilerServices;
+
 namespace ChallengeApp                                       // it store all values in memory
 {
     public class EmployeeInMemory : EmployeeBase
     {
+        private List<float> grades = new List<float>();         // New Private List for counting employees
+
         public override event GradeAddedDelegate GradeAdded;
-
-
-        private List<float> grades = new List<float>();                   // New Private List for counting employees
-
-
         public EmployeeInMemory(string name, string surname)
             : base(name, surname)
         {
@@ -23,7 +24,7 @@ namespace ChallengeApp                                       // it store all val
                 {
                     GradeAdded(this, new EventArgs());                  // this means = we
                 }
-            }  
+            }
             else
             {
                 throw new Exception("Invalid grade value");
@@ -32,7 +33,8 @@ namespace ChallengeApp                                       // it store all val
 
         public override void AddGrade(double grade)
         {
-            throw new NotImplementedException();
+            float gradeAsFloat = (float)grade;
+            this.AddGrade(gradeAsFloat);
         }
         public void AddGrade(long grade)
         {
@@ -42,123 +44,67 @@ namespace ChallengeApp                                       // it store all val
 
         public override void AddGrade(int grade)
         {
-            throw new NotImplementedException();
+            float gradeAsFloat = (float)grade;
+            this.AddGrade(gradeAsFloat);
         }
 
-        public override void AddGrade(string grade)
-        {
-            if (GradeAdded != null)
-            {
-                GradeAdded(this, new EventArgs());                  // this means = we
-            }
-            switch (grade)
-            {
-                case "6":
-                    this.grades.Add(100);
-                    break;
-                case "-6" or "6-":
-                    this.grades.Add(95);
-                    break;
-                case "5+" or "+5":
-                    this.grades.Add(85);
-                    break;
-                case "5":
-                    this.grades.Add(80);
-                    break;
-                case "-5" or "5-":
-                    this.grades.Add(75);
-                    break;
-                case "+4" or "4+":
-                    this.grades.Add(65);
-                    break;
-                case "4":
-                    this.grades.Add(60);
-                    break;
-                case "-4" or "4-":
-                    this.grades.Add(55);
-                    break;
-                case "3+" or "+3":
-                    this.grades.Add(45);
-                    break;
-                case "3":
-                    this.grades.Add(40);
-                    break;
-                case "-3" or "3-":
-                    this.grades.Add(35);
-                    break;
-                case "+2" or "2+":
-                    this.grades.Add(25);
-                    break;
-                case "2":
-                    this.grades.Add(20);
-                    break;
-                case "-2" or "2-":
-                    this.grades.Add(15);
-                    break;
-                case "+1" or "1+":
-                    this.grades.Add(5);
-                    break;
-                case "1":
-                    this.grades.Add(0);
-                    break;
-                default:
-                    throw new Exception("Invalid grade Value");
-            }
 
-           
-        }
-
-        public override void AddGrade(char grade)
-        {
-            throw new Exception("Invalid grade Value");
-        }
         public override void AddGrade(decimal grade)
         {
             decimal gradeAsFloat = (decimal)grade;
             this.AddGrade((float)gradeAsFloat);
         }
+        public override void AddGrade(string grade)
+        {
+            if (float.TryParse(grade, out float result))
+            {
+                this.AddGrade(result);
+            }
+            else
+            {
+                throw new Exception("String and not float");
+            }
+        }
+
+        public override void AddGrade(char grade)
+        {
+            switch (grade)
+            {
+                case 'A' or 'a':
+                    this.AddGrade(100);
+                    break;
+                case 'B' or 'b':
+                    this.AddGrade(80);
+                    break;
+                case 'C' or 'c':
+                    this.AddGrade(60);
+                    break;
+                case 'D' or 'd':
+                    this.AddGrade(40);
+                    break;
+                case 'E':
+                    this.AddGrade(20);
+                    break;
+                default:
+                    throw new Exception("Wrong letter");
+            }
+
+        }
+
 
         public override Statistics GetStatistics()
         {
             var statistics = new Statistics();
-            statistics.Average = 0;
-            statistics.Max = float.MinValue;                        // To calculate the Math.Max, we need a lower grade
-            statistics.Min = float.MaxValue;
-
 
             foreach (var grade in this.grades)
             {
-
-                statistics.Max = Math.Max(statistics.Max, grade);   // taking max from class Math
-                statistics.Min = Math.Min(statistics.Min, grade);   // taking Min from class Min
-                statistics.Average += grade;                        // means: average = average + grade
-
+                statistics.AddGrade(grade);
             }
-            statistics.Average /= this.grades.Count;    // here we caluclate our loops devided our sum
 
-            switch (statistics.Average)
-            {
-                case var average when average >= 80:
-                    statistics.AverageLetter = 'A';
-                    break;
-                case var average when average >= 60:
-                    statistics.AverageLetter = 'B';
-                    break;
-                case var average when average >= 40:
-                    statistics.AverageLetter = 'C';
-                    break;
-                case var average when average >= 20:
-                    statistics.AverageLetter = 'D';
-                    break;
-                default:
-                    statistics.AverageLetter = 'E';
-                    break;
-
-            }
 
             return statistics;
         }
     }
-    }
+}
 
 
